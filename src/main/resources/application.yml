@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://13.125.28.166:3306/study_room
+    username: naverChildren
+    password: nc123!@#StudyRoom!n@c#1$2%3^
+    driver-class-name: com.mysql.cj.jdbc.Driver
