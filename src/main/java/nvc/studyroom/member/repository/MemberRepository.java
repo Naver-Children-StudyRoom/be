@@ -1,6 +1,6 @@
-package nvc.studyroom.user.repository;
+package nvc.studyroom.member.repository;
 
-import nvc.studyroom.user.domain.Member;
+import nvc.studyroom.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

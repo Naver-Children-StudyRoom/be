@@ -1,4 +1,4 @@
-package nvc.studyroom.user.dto;
+package nvc.studyroom.member.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
