@@ -1,4 +1,4 @@
-package nvc.studyroom.user.domain;
+package nvc.studyroom.member.domain;
 
 import lombok.*;
 import nvc.studyroom.common.BaseEntity;

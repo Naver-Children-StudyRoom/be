@@ -8,3 +8,14 @@ spring:
     username: naverChildren
     password: nc123!@#StudyRoom!n@c#1$2%3^
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+mail:
+  host: smtp.gmail.com
+  port: 587
+  protocol: smtp
+  default-encoding: UTF-8
+  username: naverChildren@gmail.com
+  password: nc123!@#
+  smtp:
+    start-tls-enable: true
+    auth: true

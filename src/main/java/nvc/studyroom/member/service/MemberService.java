@@ -1,11 +1,11 @@
-package nvc.studyroom.user.service;
+package nvc.studyroom.member.service;
 
 import lombok.RequiredArgsConstructor;
-import nvc.studyroom.user.domain.Member;
-import nvc.studyroom.user.domain.MemberStatusType;
-import nvc.studyroom.user.dto.LoginInfoDto;
-import nvc.studyroom.user.dto.MemberDto;
-import nvc.studyroom.user.repository.MemberRepository;
+import nvc.studyroom.member.domain.Member;
+import nvc.studyroom.member.domain.MemberStatusType;
+import nvc.studyroom.member.dto.LoginInfoDto;
+import nvc.studyroom.member.dto.MemberDto;
+import nvc.studyroom.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +19,7 @@ public class MemberService {
     @Transactional
     public LoginInfoDto signUp(MemberDto memberDto) throws Exception {
         // 1. 이메일 중복체크
-        Optional<Member> memberByEmail = memberRepository.findMemberByEmail(memberDto.getEmail());
-        if(memberByEmail.isPresent()) {
-            throw new Exception("이미 가입된 이메일입니다.");
-        }
+        isDuplicatedEmail(memberDto.getEmail());
 
         // 2. 가입 신청 정보 저장
         Member member = Member.builder()
@@ -39,6 +36,14 @@ public class MemberService {
                 .name(member.getName())
                 .profileImageUri(member.getProfileImageUri())
                 .build();
+    }
+
+    @Transactional
+    public void isDuplicatedEmail(String email) throws Exception{
+        Optional<Member> memberByEmail = memberRepository.findMemberByEmail(email);
+        if(memberByEmail.isPresent()) {
+            throw new Exception("이미 가입된 이메일입니다.");
+        }
     }
 
     // TODO: 1. accessToken 생성 메소드 생성
