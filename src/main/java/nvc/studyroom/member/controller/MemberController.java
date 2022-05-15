@@ -6,6 +6,10 @@ import nvc.studyroom.member.dto.LoginInfoDto;
 import nvc.studyroom.member.dto.MemberDto;
 import nvc.studyroom.member.service.MailService;
 import nvc.studyroom.member.service.MemberService;
+import nvc.studyroom.security.jwt.JwtAuthenticationFilter;
+import nvc.studyroom.security.jwt.JwtTokenProvider;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +24,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/signUp")
     public ResponseEntity<LoginInfoDto> signUp(@Parameter(description = "가입 요청 정보") @RequestBody MemberDto memberDto) throws Exception {
-        LoginInfoDto loginInfoDto = memberService.signUp(memberDto);
-        return new ResponseEntity<>(loginInfoDto, HttpStatus.OK);
+        memberService.signUp(memberDto);
+        return login(new LoginDto(memberDto.getEmail(), memberDto.getPassword()));
     }
 
     @GetMapping("/valid-email")

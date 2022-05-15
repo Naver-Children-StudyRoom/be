@@ -17,7 +17,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public LoginInfoDto signUp(MemberDto memberDto) throws Exception {
+    public void signUp(MemberDto memberDto) throws Exception {
         // 1. 이메일 중복체크
         isDuplicatedEmail(memberDto.getEmail());
 
@@ -30,15 +30,21 @@ public class MemberService {
                 .statusType(MemberStatusType.NORMAL)
                 .build();
         member = memberRepository.save(member);
-
-        return LoginInfoDto.builder()
-                .email(member.getEmail())
-                .name(member.getName())
-                .profileImageUri(member.getProfileImageUri())
-                .build();
     }
 
-    @Transactional
+    public LoginInfoDto login(LoginDto loginDto) {
+        Member member = memberRepository.findMemberByEmail(loginDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+        if(!member.getPassword().equals(loginDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return LoginInfoDto.builder()
+            .email(member.getEmail())
+            .name(member.getName())
+            .profileImageUri(member.getProfileImageUri())
+            .build();
+    }
+
     public void isDuplicatedEmail(String email) throws Exception{
         Optional<Member> memberByEmail = memberRepository.findMemberByEmail(email);
         if(memberByEmail.isPresent()) {

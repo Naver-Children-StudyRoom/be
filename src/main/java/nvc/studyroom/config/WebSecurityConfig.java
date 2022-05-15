@@ -9,13 +9,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .mvcMatchers("/login/**", "/signup/**").permitAll()
-                .mvcMatchers("/**").authenticated();
-//                .and().addFilterBefore()
+        http
+            .csrf().disable()
+
+            .exceptionHandling()
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler)
+
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
+
+            .and()
+            .authorizeRequests()
+            .mvcMatchers("/login/**", "/signup/**").permitAll()
+            .mvcMatchers("/**").authenticated()
+
+            .and()
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

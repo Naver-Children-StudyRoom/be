@@ -19,3 +19,7 @@ mail:
   smtp:
     start-tls-enable: true
     auth: true
+
+jwt:
+  secret: bmF2ZXItY2hpbGRyZW4tc3R1ZHlyb29tCg==
+  token-validity-in-seconds: 86400
