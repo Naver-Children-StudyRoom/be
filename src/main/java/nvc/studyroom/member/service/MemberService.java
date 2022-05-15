@@ -3,6 +3,7 @@ package nvc.studyroom.member.service;
 import lombok.RequiredArgsConstructor;
 import nvc.studyroom.member.domain.Member;
 import nvc.studyroom.member.domain.MemberStatusType;
+import nvc.studyroom.member.dto.LoginDto;
 import nvc.studyroom.member.dto.LoginInfoDto;
 import nvc.studyroom.member.dto.MemberDto;
 import nvc.studyroom.member.repository.MemberRepository;
