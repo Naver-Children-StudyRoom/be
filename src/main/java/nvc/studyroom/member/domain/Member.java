@@ -50,7 +50,7 @@ public class Member extends BaseEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(statusType.toString()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+statusType.toString()));
         return authorities;
     }
 

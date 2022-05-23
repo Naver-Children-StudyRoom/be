@@ -27,7 +27,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "jwt")
 public class JwtTokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
