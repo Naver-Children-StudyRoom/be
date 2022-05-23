@@ -32,8 +32,8 @@ public class JwtTokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
 
-    private String secret;
-    private long tokenValidityInSeconds;
+    private String secret = "bmF2ZXItY2hpbGRyZW4tc3R1ZHlyb29tCg==";
+    private long tokenValidityInSeconds = 86400;
 
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()

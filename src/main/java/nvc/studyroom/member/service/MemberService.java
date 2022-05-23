@@ -1,21 +1,25 @@
 package nvc.studyroom.member.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import nvc.studyroom.member.domain.Member;
 import nvc.studyroom.member.domain.MemberStatusType;
 import nvc.studyroom.member.dto.LoginDto;
 import nvc.studyroom.member.dto.LoginInfoDto;
 import nvc.studyroom.member.dto.MemberDto;
 import nvc.studyroom.member.repository.MemberRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void signUp(MemberDto memberDto) throws Exception {
@@ -25,7 +29,7 @@ public class MemberService {
         // 2. 가입 신청 정보 저장
         Member member = Member.builder()
                 .email(memberDto.getEmail())
-                .password(memberDto.getPassword())
+                .password(passwordEncoder.encode(memberDto.getPassword()))
                 .name(memberDto.getName())
                 .emailReceiveYn(memberDto.getEmailReceiveYn())
                 .statusType(MemberStatusType.NORMAL)
@@ -34,8 +38,9 @@ public class MemberService {
     }
 
     public LoginInfoDto login(LoginDto loginDto) {
+        log.info("call login");
         Member member = memberRepository.findMemberByEmail(loginDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
-        if(!member.getPassword().equals(loginDto.getPassword())) {
+        if(!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 

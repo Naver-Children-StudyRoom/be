@@ -33,7 +33,7 @@ public class MemberController {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<LoginInfoDto> signUp(@Parameter(description = "가입 요청 정보") @RequestBody MemberDto memberDto) throws Exception {
         memberService.signUp(memberDto);
         return login(new LoginDto(memberDto.getEmail(), memberDto.getPassword()));

@@ -15,8 +15,8 @@ public class ExceptionController {
         return new ResponseEntity<>("SqlException", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity handleSignUpException() {
-        return new ResponseEntity<>("SignUpException", HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity handleSignUpException() {
+//        return new ResponseEntity<>("SignUpException", HttpStatus.BAD_REQUEST);
+//    }
 }

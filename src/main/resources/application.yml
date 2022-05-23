@@ -9,6 +9,10 @@ spring:
     password: nc123!@#StudyRoom!n@c#1$2%3^
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+logging:
+  level:
+    root: DEBUG
+
 mail:
   host: smtp.gmail.com
   port: 587

@@ -42,8 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .mvcMatchers("/login/**", "/signup/**").permitAll()
-            .mvcMatchers("/**").authenticated()
+            .mvcMatchers("/login", "/signup").permitAll()
+            .anyRequest().permitAll()
 
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
