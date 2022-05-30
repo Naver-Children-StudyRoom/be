@@ -58,6 +58,34 @@ public class MemberService {
         }
     }
 
+    public LoginInfoDto getLoginInfo(String id) {
+        Member member = memberRepository.findById(Integer.parseInt(id)).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+        return LoginInfoDto.builder()
+            .email(member.getEmail())
+            .name(member.getName())
+            .profileImageUri(member.getProfileImageUri())
+            .build();
+   }
+
+   @Transactional
+   public LoginInfoDto updateMember(String id, LoginInfoDto loginInfoDto) {
+       Member member = memberRepository.findById(Integer.parseInt(id)).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+       member.setEmail(loginInfoDto.getEmail());
+       member.setName(loginInfoDto.getName());
+       member.setProfileImageUri(loginInfoDto.getProfileImageUri());
+       return LoginInfoDto.builder()
+           .email(member.getEmail())
+           .name(member.getName())
+           .profileImageUri(member.getProfileImageUri())
+           .build();
+   }
+   
+   @Transactional
+    public void updatePassword(String id, String password) {
+       Member member = memberRepository.findById(Integer.parseInt(id)).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+       member.setPassword(passwordEncoder.encode(password));
+   }
+
     // TODO: 1. accessToken 생성 메소드 생성
     // TODO: 2. accessToken 생성
 

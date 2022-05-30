@@ -32,7 +32,7 @@ public class JwtTokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
 
     private String secret = "bmF2ZXItY2hpbGRyZW4tc3R1ZHlyb29tCg==";
-    private long tokenValidityInSeconds = 86400;
+    private long tokenValidityInMilliSeconds = 86400000;
 
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
@@ -40,7 +40,7 @@ public class JwtTokenProvider {
             .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        Date expiration = new Date(now + tokenValidityInSeconds);
+        Date expiration = new Date(now + tokenValidityInMilliSeconds);
 
         return Jwts.builder()
             .setSubject(authentication.getName())

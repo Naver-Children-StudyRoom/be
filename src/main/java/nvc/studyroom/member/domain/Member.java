@@ -55,9 +55,7 @@ public class Member extends BaseEntity implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return email;
-    }
+    public String getUsername() { return Integer.toString(id); }
 
     @Override
     public String getPassword() {
