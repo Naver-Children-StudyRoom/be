@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .mvcMatchers("/login", "/signup", "/valid-email").permitAll()
+            .mvcMatchers("/login", "/signup", "/valid-email", "/verify-email").permitAll()
             .mvcMatchers("/authorization").hasRole("NORMAL")
             .anyRequest().authenticated()
 

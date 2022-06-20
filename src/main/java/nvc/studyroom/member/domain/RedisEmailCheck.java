@@ -2,6 +2,8 @@ package nvc.studyroom.member.domain;
 
 import lombok.*;
 import nvc.studyroom.common.BaseEntity;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Table;
 import javax.persistence.Entity;
@@ -14,10 +16,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
+@DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "RedisEmailCheck")
 public class RedisEmailCheck extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +31,5 @@ public class RedisEmailCheck extends BaseEntity {
     private String email;
 
     @NotNull
-    private String key;
+    private String code;
 }

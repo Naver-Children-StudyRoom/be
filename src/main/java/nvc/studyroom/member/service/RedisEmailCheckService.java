@@ -12,16 +12,16 @@ import java.util.Optional;
 public class RedisEmailCheckService {
     private final RedisEmailCheckRepository redisEmailCheckRepository;
 
-    public void setKey(String email, String key) {
+    public void setKey(String email, String code) {
         Optional<RedisEmailCheck> redisEmailCheckOptional = redisEmailCheckRepository.findByEmail(email);
         if(redisEmailCheckOptional.isPresent()) {
-            redisEmailCheckOptional.get().setKey(key);
+            redisEmailCheckOptional.get().setCode(code);
         } else{
-            redisEmailCheckRepository.save(RedisEmailCheck.builder().email(email).key(key).build());
+            redisEmailCheckRepository.save(RedisEmailCheck.builder().email(email).code(code).build());
         }
     }
 
-    public void checkKey(String email, String key) throws IllegalArgumentException {
-        RedisEmailCheck redisEmailCheck = redisEmailCheckRepository.findByEmailAndKey(email, key).orElseThrow(() -> new IllegalArgumentException("no redis"));
+    public void checkKey(String email, String code) throws IllegalArgumentException {
+        RedisEmailCheck redisEmailCheck = redisEmailCheckRepository.findByEmailAndCode(email, code).orElseThrow(() -> new IllegalArgumentException("no redis"));
     }
 }

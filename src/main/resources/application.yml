@@ -14,14 +14,20 @@ logging:
     root: DEBUG
 
 mail:
-  host: smtp.gmail.com
-  port: 587
+#  host: smtp.gmail.com
+#  port: 587
+#  protocol: smtp
+#  default-encoding: UTF-8
+#  username: naverChildren@gmail.com
+#  password: nc123!@#
+  host: smtp.naver.com
+  port: 465
   protocol: smtp
   default-encoding: UTF-8
-  username: naverChildren@gmail.com
+  username: studyroom123@naver.com
   password: nc123!@#
   smtp:
-    start-tls-enable: true
+    start-SSL-enable: true
     auth: true
 
 jwt:

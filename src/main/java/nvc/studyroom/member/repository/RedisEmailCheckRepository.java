@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface RedisEmailCheckRepository extends JpaRepository<RedisEmailCheck, Integer> {
     Optional<RedisEmailCheck> findByEmail(String email);
-    Optional<RedisEmailCheck> findByEmailAndKey(String email, String key);
+    Optional<RedisEmailCheck> findByEmailAndCode(String email, String code);
 }

@@ -30,7 +30,7 @@ public class MailService {
                 "<br/>인증 번호" + key);
         sendMail.setFrom("naverChildren@gmail.com", "[발송자 이름]");
         sendMail.setTo(email);
-        sendMail.send();
+//        sendMail.send();
 
         redisEmailCheckService.setKey(email, key);
     }
