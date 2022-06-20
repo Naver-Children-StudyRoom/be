@@ -1,5 +1,7 @@
 package nvc.studyroom.member.service;
 
+import nvc.studyroom.member.domain.RedisEmailCheck;
+import nvc.studyroom.member.repository.RedisEmailCheckRepository;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,10 +11,13 @@ import lombok.RequiredArgsConstructor;
 import nvc.studyroom.common.utils.MailUtils;
 import nvc.studyroom.common.utils.TempKey;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MailService {
     private final JavaMailSender mailSender;
+    private final RedisEmailCheckService redisEmailCheckService;
 
     @Transactional
     public void register(String email) throws Exception {
@@ -26,5 +31,7 @@ public class MailService {
         sendMail.setFrom("naverChildren@gmail.com", "[발송자 이름]");
         sendMail.setTo(email);
         sendMail.send();
+
+        redisEmailCheckService.setKey(email, key);
     }
 }

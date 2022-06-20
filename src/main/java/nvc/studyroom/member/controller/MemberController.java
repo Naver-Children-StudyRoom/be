@@ -8,6 +8,7 @@ import nvc.studyroom.member.dto.LoginInfoDto;
 import nvc.studyroom.member.dto.MemberDto;
 import nvc.studyroom.member.service.MailService;
 import nvc.studyroom.member.service.MemberService;
+import nvc.studyroom.member.service.RedisEmailCheckService;
 import nvc.studyroom.security.jwt.JwtAuthenticationFilter;
 import nvc.studyroom.security.jwt.JwtTokenProvider;
 
@@ -32,6 +33,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MailService mailService;
+    private final RedisEmailCheckService redisEmailCheckService;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -68,6 +70,16 @@ public class MemberController {
         memberService.isDuplicatedEmail(email);
         // 중복 아니면 메일 발송
         mailService.register(email);
+
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+    }
+
+    @GetMapping("/verify-email")
+    public ResponseEntity<Boolean> verifyEmail(
+            @Parameter(description = "이메일") @RequestParam String email,
+            @Parameter(description = "인증번호") @RequestParam String key) {
+
+        redisEmailCheckService.checkKey(email, key);
 
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
