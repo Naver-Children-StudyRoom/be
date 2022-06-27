@@ -23,12 +23,17 @@ public class MailConfig {
     private static final String MAIL_SMTP_STARTTLS_REQUIRED = "mail.smtp.starttls.required";
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    private static final String MAIL_SMTP_SSL_ENABLE = "mail.smtp.ssl.enable";
+    private static final String MAIL_SMTP_SSL_TRUST = "mail.smtp.ssl.trust";
+
 
     @Data
     public static class Smtp {
         private boolean auth;
         private boolean startTlsRequired;
         private boolean startTlsEnable;
+        private boolean sslEnable;
+        private String sslTrust;
     }
 
     @NotBlank
@@ -54,6 +59,8 @@ public class MailConfig {
         properties.put(MAIL_SMTP_STARTTLS_REQUIRED, getSmtp().isStartTlsRequired());
         properties.put(MAIL_SMTP_STARTTLS_ENABLE, getSmtp().isStartTlsEnable());
         properties.put(MAIL_SMTP_AUTH, getSmtp().isAuth());
+        properties.put(MAIL_SMTP_SSL_ENABLE, getSmtp().isSslEnable());
+        properties.put(MAIL_SMTP_SSL_TRUST, getSmtp().getSslTrust());
         properties.put(MAIL_DEBUG, true);
         mailSender.setJavaMailProperties(properties);
         return mailSender;

@@ -67,7 +67,7 @@ public class MemberController {
     @GetMapping("/valid-email")
     public ResponseEntity<Boolean> validEmail(@Parameter(description = "이메일") @RequestParam String email) throws Exception {
         // 중복체크
-        memberService.isDuplicatedEmail(email);
+        // memberService.isDuplicatedEmail(email);
         // 중복 아니면 메일 발송
         mailService.register(email);
 

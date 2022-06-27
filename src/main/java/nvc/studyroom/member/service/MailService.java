@@ -1,5 +1,6 @@
 package nvc.studyroom.member.service;
 
+import nvc.studyroom.config.MailConfig;
 import nvc.studyroom.member.domain.RedisEmailCheck;
 import nvc.studyroom.member.repository.RedisEmailCheckRepository;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class MailService {
     private final JavaMailSender mailSender;
     private final RedisEmailCheckService redisEmailCheckService;
+    private final MailConfig mailConfig;
 
     @Transactional
     public void register(String email) throws Exception {
@@ -28,9 +30,9 @@ public class MailService {
             "<h1>메일인증</h1>" +
                 "<br/>아래 인증 번호를 입력해주세요"+
                 "<br/>인증 번호" + key);
-        sendMail.setFrom("naverChildren@gmail.com", "[발송자 이름]");
+        sendMail.setFrom(mailConfig.getUsername(), "네린이");
         sendMail.setTo(email);
-//        sendMail.send();
+        sendMail.send();
 
         redisEmailCheckService.setKey(email, key);
     }

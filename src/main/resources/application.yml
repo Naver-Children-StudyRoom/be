@@ -20,6 +20,16 @@ mail:
 #  default-encoding: UTF-8
 #  username: naverChildren@gmail.com
 #  password: nc123!@#
+
+#  spring.mail.host=smtp.naver.com
+#  spring.mail.port=가려진 포트번호를 가져와서 등록
+#  spring.mail.username=보내려는 이메일
+#  spring.mail.password=네이버 비밀번호
+#  spring.mail.properties.mail.smtp.auth=true
+#  spring.mail.properties.mail.smtp.ssl.enable=true
+#  spring.mail.properties.mail.smtp.ssl.trust=smtp.naver.com
+#  spring.mail.properties.mail.smtp.starttls.enable=true
+
   host: smtp.naver.com
   port: 465
   protocol: smtp
@@ -29,6 +39,8 @@ mail:
   smtp:
     start-SSL-enable: true
     auth: true
+    ssl-enable: true
+    ssl-trust: smtp.naver.com
 
 jwt:
   secret: bmF2ZXItY2hpbGRyZW4tc3R1ZHlyb29tCg==
