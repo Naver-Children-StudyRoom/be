@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nvc.studyroom.member.domain.Member;
 import nvc.studyroom.member.domain.MemberStatusType;
+import nvc.studyroom.member.domain.RedisEmailCheck;
 import nvc.studyroom.member.dto.LoginDto;
 import nvc.studyroom.member.dto.LoginInfoDto;
 import nvc.studyroom.member.dto.MemberDto;
 import nvc.studyroom.member.repository.MemberRepository;
+import nvc.studyroom.member.repository.RedisEmailCheckRepository;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final RedisEmailCheckRepository redisEmailCheckRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -26,7 +30,10 @@ public class MemberService {
         // 1. 이메일 중복체크
         isDuplicatedEmail(memberDto.getEmail());
 
-        // 2. 가입 신청 정보 저장
+        // 2. 이메일 인증 여부 체크
+        isVerifiedEmail(memberDto.getEmail());
+
+        // 3. 가입 신청 정보 저장
         Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .password(passwordEncoder.encode(memberDto.getPassword()))
@@ -51,11 +58,21 @@ public class MemberService {
             .build();
     }
 
-    public void isDuplicatedEmail(String email) throws Exception{
+    private void isDuplicatedEmail(String email) throws Exception {
         Optional<Member> memberByEmail = memberRepository.findMemberByEmail(email);
         if(memberByEmail.isPresent()) {
             throw new Exception("이미 가입된 이메일입니다.");
         }
+    }
+
+    private void isVerifiedEmail(String email) throws Exception {
+        RedisEmailCheck redisEmailCheck = redisEmailCheckRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+
+        if (redisEmailCheck.getVerified().equals(Boolean.FALSE)) {
+            throw new IllegalArgumentException("인증되지 않은 이메일입니다.");
+        }
+
+        redisEmailCheckRepository.delete(redisEmailCheck);
     }
 
     public LoginInfoDto getLoginInfo(String id) {

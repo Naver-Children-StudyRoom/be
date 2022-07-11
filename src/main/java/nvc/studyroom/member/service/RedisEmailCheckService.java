@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nvc.studyroom.member.domain.RedisEmailCheck;
 import nvc.studyroom.member.repository.RedisEmailCheckRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,7 +22,9 @@ public class RedisEmailCheckService {
         }
     }
 
+    @Transactional
     public void checkKey(String email, String code) throws IllegalArgumentException {
         RedisEmailCheck redisEmailCheck = redisEmailCheckRepository.findByEmailAndCode(email, code).orElseThrow(() -> new IllegalArgumentException("no redis"));
+        redisEmailCheck.setVerified(Boolean.TRUE);
     }
 }

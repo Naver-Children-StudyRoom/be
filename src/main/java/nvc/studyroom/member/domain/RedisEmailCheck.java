@@ -32,4 +32,6 @@ public class RedisEmailCheck extends BaseEntity {
 
     @NotNull
     private String code;
+
+    private Boolean verified;
 }

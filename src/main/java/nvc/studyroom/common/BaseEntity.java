@@ -14,8 +14,8 @@ import java.util.Date;
 public abstract class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
-    protected Date registerYmdt = new Date();
+    protected Date registerYmdt;
 
     @LastModifiedDate
-    protected Date modifyYmdt = new Date();
+    protected Date modifyYmdt;
 }
