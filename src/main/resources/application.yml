@@ -1,0 +1,47 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://13.125.28.166:3306/study_room
+    username: naverChildren
+    password: nc123!@#StudyRoom!n@c#1$2%3^
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: DEBUG
+
+mail:
+#  host: smtp.gmail.com
+#  port: 587
+#  protocol: smtp
+#  default-encoding: UTF-8
+#  username: naverChildren@gmail.com
+#  password: nc123!@#
+
+#  spring.mail.host=smtp.naver.com
+#  spring.mail.port=가려진 포트번호를 가져와서 등록
+#  spring.mail.username=보내려는 이메일
+#  spring.mail.password=네이버 비밀번호
+#  spring.mail.properties.mail.smtp.auth=true
+#  spring.mail.properties.mail.smtp.ssl.enable=true
+#  spring.mail.properties.mail.smtp.ssl.trust=smtp.naver.com
+#  spring.mail.properties.mail.smtp.starttls.enable=true
+
+  host: smtp.naver.com
+  port: 465
+  protocol: smtp
+  default-encoding: UTF-8
+  username: studyroom123@naver.com
+  password: nc123!@#
+  smtp:
+    start-SSL-enable: true
+    auth: true
+    ssl-enable: true
+    ssl-trust: smtp.naver.com
+
+jwt:
+  secret: bmF2ZXItY2hpbGRyZW4tc3R1ZHlyb29tCg==
+  token-validity-in-seconds: 86400
