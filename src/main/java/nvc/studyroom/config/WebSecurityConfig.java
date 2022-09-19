@@ -43,9 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .mvcMatchers("/login", "/signup", "/valid-email", "/verify-email").permitAll()
-            .mvcMatchers("/authorization").hasRole("NORMAL")
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
+//            .mvcMatchers("/login", "/signup", "/valid-email", "/verify-email").permitAll()
+//            .mvcMatchers("/authorization").hasRole("NORMAL")
+//            .anyRequest().authenticated()
 
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
