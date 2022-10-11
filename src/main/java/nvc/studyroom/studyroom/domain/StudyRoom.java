@@ -38,9 +38,9 @@ import nvc.studyroom.common.BaseEntity;
 public class StudyRoom extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private Long memberId;
+    private Integer memberId;
 
     @NotNull
     private String title;
@@ -48,7 +48,7 @@ public class StudyRoom extends BaseEntity {
     private String password;
 
     // TODO : Chat entity 만들면 고민해보기
-    private Long notice;
+    private Integer notice;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)

@@ -85,7 +85,7 @@ public class MemberController {
     }
 
     @GetMapping("/myinfo")
-    public ResponseEntity<LoginInfoDto> myInfo(@RequestAttribute String id) {
+    public ResponseEntity<LoginInfoDto> myInfo(@RequestAttribute int id) {
         return new ResponseEntity<>(memberService.getLoginInfo(id), HttpStatus.OK);
     }
 

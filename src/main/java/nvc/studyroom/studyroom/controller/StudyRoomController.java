@@ -5,10 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +21,8 @@ public class StudyRoomController {
     private final StudyRoomService studyRoomService;
 
     @PostMapping
-    public ResponseEntity<Boolean> createStudyRoom(@Parameter(description = "스터디룸 생성 정보") @Valid @RequestBody StudyRoomDto studyRoomDto) throws Exception {
-        studyRoomService.createStudyRoom(studyRoomDto);
+    public ResponseEntity<Boolean> createStudyRoom(@RequestAttribute int id, @Parameter(description = "스터디룸 생성 정보") @Valid @RequestBody StudyRoomDto studyRoomDto) throws Exception {
+        studyRoomService.createStudyRoom(id, studyRoomDto);
         return ResponseEntity.of(Optional.of(true));
     }
 }

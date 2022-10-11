@@ -75,8 +75,8 @@ public class MemberService {
         redisEmailCheckRepository.delete(redisEmailCheck);
     }
 
-    public LoginInfoDto getLoginInfo(String id) {
-        Member member = memberRepository.findById(Integer.parseInt(id)).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
+    public LoginInfoDto getLoginInfo(int id) {
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 멤버가 존재하지 않습니다."));
         return LoginInfoDto.builder()
             .email(member.getEmail())
             .name(member.getName())

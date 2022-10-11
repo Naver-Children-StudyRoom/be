@@ -17,9 +17,9 @@ import nvc.studyroom.studyroom.repository.StudyRoomRepository;
 public class StudyRoomService {
     private final StudyRoomRepository studyRoomRepository;
 
-    public void createStudyRoom(StudyRoomDto studyRoomDto) {
+    public void createStudyRoom(int id, StudyRoomDto studyRoomDto) {
         studyRoomRepository.save(StudyRoom.builder()
-            .memberId(null)
+            .memberId(id)
             .title(studyRoomDto.getTitle())
             .password(studyRoomDto.getPassword())
             .type(StringUtils.isBlank(studyRoomDto.getPassword()) ? StudyRoomType.OPEN : StudyRoomType.SECRET)
